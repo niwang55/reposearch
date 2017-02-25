@@ -7,17 +7,18 @@ export default class App extends React.Component {
     this.state = {
       username: '',
       user: null,
-      repos: null
+      repos: null,
+      filteredRepos: null
     };
   }
 
-  handleChange(e) {
+  handleUserChange(e) {
     this.setState({
       username: e.target.value
     });
   }
 
-  handleSubmit(e) {
+  handleUserSubmit(e) {
     e.preventDefault();
     const repoUrl = `https://api.github.com/users/${this.state.username}/repos`;
     const userUrl = `https://api.github.com/users/${this.state.username}`;
@@ -36,17 +37,25 @@ export default class App extends React.Component {
       .then(repos => {
         console.log(repos);
         this.setState({
-          repos: [...repos]
+          repos: [...repos],
+          filteredRepos: [...repos]
         });
       });
 
   }
 
+  handleRepoChange(e) {
+    const filteredArray = this.state.repos.filter(repo => repo.name.toLowerCase().includes(e.target.value));
+    this.setState({
+      filteredRepos: filteredArray
+    });
+  }
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type='search' onChange={this.handleChange.bind(this)} className='search-bar' placeholder='Search for a username' />
+        <form onSubmit={this.handleUserSubmit.bind(this)}>
+          <input type='search' onChange={this.handleUserChange.bind(this)} className='search-bar' id='user-search' placeholder='Search for a GitHub user' />
           <input type='submit' />
         </form>
 
@@ -62,8 +71,11 @@ export default class App extends React.Component {
           {this.state.repos &&
             <div>
               <h3>Repositories</h3>
-              {this.state.repos.map((repo, index) => (
-                            <Repo key={index} details={repo} />
+              <form>
+                <input type='search' onChange={this.handleRepoChange.bind(this)} placeholder='filter by repo name' className='search-bar' id='repo-search' />
+              </form>
+              {this.state.filteredRepos.map((repo, index) => (
+                <Repo key={index} details={repo} />
               ))}
             </div>
           }
