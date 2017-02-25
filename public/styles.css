@@ -1,6 +1,16 @@
+body {
+  font-family: Helvetica, Arial, sans-serif
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+}
+
 .user-banner {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .user-banner > * {
@@ -10,4 +20,17 @@
 .avatar-img {
   width: 100px;
   height: 100px;
+}
+
+input {
+  margin: 10px 10px 10px 0;
+}
+
+.search-bar {
+  width: 250px;
+}
+
+.results {
+  display: flex;
+  justify-content: center;
 }

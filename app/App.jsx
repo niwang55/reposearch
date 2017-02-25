@@ -105,10 +105,12 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleUserSubmit.bind(this)}>
-          <input type='search' onChange={this.handleUserChange.bind(this)} className='search-bar' id='user-search' placeholder='Search for a GitHub user' />
-          <input type='submit' />
-        </form>
+        <div className='search-box'>
+          <form onSubmit={this.handleUserSubmit.bind(this)}>
+            <input type='search' onChange={this.handleUserChange.bind(this)} className='search-bar' id='user-search' placeholder='Search for a GitHub user' />
+            <input type='submit' />
+          </form>
+        </div>
 
         <div>
 
@@ -120,9 +122,9 @@ export default class App extends React.Component {
           }
 
           {this.state.repos &&
-            <div>
+            <div className='results'>
 
-              <div>
+              <div className='repositories'>
                 <h3>Repositories</h3>
                 <form>
                   <input type='search' onChange={this.handleRepoChange.bind(this)} placeholder='filter by repo name' className='search-bar' id='repo-search' />
@@ -132,7 +134,7 @@ export default class App extends React.Component {
                 ))}
               </div>
 
-              <div>
+              <div className='similar-followers'>
                 <h3>Search another user to find common followers</h3>
                 <form onSubmit={this.handleSecondUserSubmit.bind(this)}>
                   <input onChange={this.handleSecondUserChange.bind(this)} type='search' className='search-bar' placeholder='search another user' />
